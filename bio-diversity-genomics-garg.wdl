@@ -15,11 +15,13 @@ task FastK {
     echo "Running FastK.."
     echo "soruce: ${source}"
     # FastK -v -t -p "${source}"
+    cat /etc/os-release
   }
   output {
     File result = stdout()
   }
-  # runtime {
-  #   docker: "quay.io/junaruga/garg-fastk:latest"
-  # }
+  runtime {
+    docker: "docker.io/ubuntu:latest"
+    # docker: "quay.io/junaruga/garg-fastk:latest"
+  }
 }
