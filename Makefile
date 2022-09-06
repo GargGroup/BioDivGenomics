@@ -6,9 +6,13 @@ default : lint run
 
 # The `dockstore yaml` requires dockstore cli 1.13.0-rc.0 or later versions.
 # https://discuss.dockstore.org/t/yaml-command-line-validator-tool/5577/7
-lint :
+lint : selinux-lint
 	dockstore yaml validate --path .
 .PHONY : lint
+
+selinux-lint :
+	script/lint-selinux.sh
+.PHONY : selinux-lint
 
 # Run the wdl file on local.
 run :
