@@ -1,6 +1,7 @@
 version: 1.2
 workflows:
-  - subclass: WDL
+  - name: bio-diversity-genomics-garg
+    subclass: WDL
     primaryDescriptorPath: /bio-diversity-genomics-garg.wdl
     testParameterFiles:
       - /bio-diversity-genomics-garg.inputs.json
