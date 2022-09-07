@@ -1,3 +1,6 @@
+# Note that Docker images with the schema version 2.1 built and pushed by Podman
+# cause an error when pulled by Docker. It's safe to use docker to build Docker
+# containers. See <https://discuss.dockstore.org/t/1972/12>.
 DOCKER ?= docker
 TAG = garg-fastk
 
