@@ -1,0 +1,28 @@
+name: build
+on:
+  push:
+  pull_request:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v3
+      # Setup Dockstore command line interface (CLI).
+      # https://dockstore.org/quick-start
+      # https://github.com/actions/setup-java
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+      - run: java --version
+      - run: env | grep '^PATH'
+      # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#adding-a-system-path
+      - run: echo "$HOME/.local/bin" >> $GITHUB_PATH
+      - run: ci/install-dockstore-cli.sh
+      - run: dockstore --version
+      # Check available memory size before running the workflow.
+      - run: free -h
+      - run: make lint
+      - run: make run

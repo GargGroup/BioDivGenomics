@@ -13,7 +13,9 @@ task FastK {
   }
   command {
     echo "Running FastK with soruce: ${source} .."
-    FastK -v -t -p "${source}"
+    # Limit with the maximum memory 3 GB due to the GitHub Actions CI
+    # environment.
+    FastK -v -t -p -M3 "${source}"
   }
   output {
     File result = stdout()

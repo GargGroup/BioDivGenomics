@@ -1,0 +1,2 @@
+# Caution: Don't set token in this file for a better security.
+server-url: https://dockstore.org/api
