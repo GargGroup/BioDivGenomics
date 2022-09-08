@@ -10,8 +10,8 @@ $ make
 
 ```
 $ docker login quay.io
-$ docker tag garg-mergury-fk quay.io/junaruga/garg-mergury-fk
-$ docker push quay.io/junaruga/garg-mergury-fk:latest
+$ docker tag garg-merqury-fk quay.io/junaruga/garg-merqury-fk
+$ docker push quay.io/junaruga/garg-merqury-fk:latest
 ```
 
-The container repository page: https://quay.io/repository/junaruga/garg-mergury-fk
+The container repository page: https://quay.io/repository/junaruga/garg-merqury-fk

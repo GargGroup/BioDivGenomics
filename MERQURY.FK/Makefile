@@ -1,5 +1,5 @@
 DOCKER ?= docker
-TAG = garg-mergury-fk
+TAG = garg-merqury-fk
 
 default : build
 .PHONY : default
