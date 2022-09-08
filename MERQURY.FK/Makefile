@@ -1,5 +1,5 @@
 DOCKER ?= docker
-TAG = garg-merqury-fk
+TAG = quay.io/junaruga/garg-merqury-fk:latest
 
 default : build
 .PHONY : default
@@ -23,3 +23,22 @@ run :
 clean :
 	"$(DOCKER)" system prune -a -f
 .PHONY : clean
+
+# Test the local container.
+test :
+	"$(DOCKER)" run --rm -t $(TAG) bash -c "command -v HAPmaker"
+	"$(DOCKER)" run --rm -t $(TAG) bash -c "command -v PloidyPlot"
+.PHONY : test
+
+# Test pulling the remote container.
+test-remote : pull-remote test
+.PHONY : test-remote
+
+pull-remote :
+	"$(DOCKER)" pull --quiet $(TAG)
+.PHONY : pull-remote
+
+push :
+	"$(DOCKER)" login quay.io
+	"$(DOCKER)" push $(TAG)
+.PHONY : push
