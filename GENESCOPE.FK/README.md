@@ -13,3 +13,5 @@ $ docker login quay.io
 $ docker tag garg-gene-scope-fk quay.io/junaruga/garg-gene-scope-fk
 $ docker push quay.io/junaruga/garg-gene-scope-fk:latest
 ```
+
+The container repository page: https://quay.io/repository/junaruga/garg-gene-scope-fk
