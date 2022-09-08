@@ -2,6 +2,10 @@ name: build
 on:
   push:
   pull_request:
+  schedule:
+    # Run scheduled job UTC 21:00 (CEST 23:00) every day.
+    # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onschedule
+    - cron: '0 22 * * *'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -17,12 +21,15 @@ jobs:
           distribution: 'zulu'
           java-version: '11'
       - run: java --version
-      - run: env | grep '^PATH'
       # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#adding-a-system-path
       - run: echo "$HOME/.local/bin" >> $GITHUB_PATH
       - run: ci/install-dockstore-cli.sh
       - run: dockstore --version
       # Check available memory size before running the workflow.
       - run: free -h
+      # Set GNUMAKEFLAGS to run the make targets in parallel.
+      - run: |
+          echo "GNUMAKEFLAGS=-j$((1 + $(nproc --all)))" >> $GITHUB_ENV
       - run: make lint
+      - run: make test-containers
       - run: make run

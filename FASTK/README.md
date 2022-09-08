@@ -9,9 +9,7 @@ $ make
 ## How to push
 
 ```
-$ docker login quay.io
-$ docker tag garg-fastk quay.io/junaruga/garg-fastk
-$ docker push quay.io/junaruga/garg-fastk:latest
+$ make push
 ```
 
 The container repository page: https://quay.io/repository/junaruga/garg-fastk
