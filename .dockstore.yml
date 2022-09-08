@@ -1,6 +1,6 @@
 version: 1.2
 workflows:
-  - name: bio-diversity-genomics-garg
+  - name: bio-div-genomics-garg
     subclass: WDL
     primaryDescriptorPath: /bio-diversity-genomics-garg.wdl
     testParameterFiles:
