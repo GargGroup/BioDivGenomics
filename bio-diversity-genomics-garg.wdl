@@ -20,7 +20,8 @@ task FastK {
     # The -N3 option limits the maximum memory to 3 GB due to the GitHub
     # Actions CI environment.
     # The -v option outputs the information to stderr.
-    FastK -v -t -p -M3 "${source}" -Ntmp/FastK/outputs/table 2> tmp/FastK/outputs/info.txt
+    FastK -v -t -p -M3 "${source}" -Ntmp/FastK/outputs/table 2> \
+      tmp/FastK/outputs/info.txt
   }
   output {
     File info = "tmp/FastK/outputs/info.txt"
