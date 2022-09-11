@@ -35,7 +35,8 @@ task check_input {
   }
   command {
     echo "Check input parameters."
-    # If the input_file is not "gs://" format, it raises the error here.
+    # If the input_file is not "gs://" format on Terra, it raises the error
+    # here.
     echo "input_file: ${input_file}"
     echo "data_type: ${data_type}"
     if [ "${data_type}" != "HIFI" && "${data_type}" != "ONT" ]; then
