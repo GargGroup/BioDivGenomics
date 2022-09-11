@@ -1,2 +1,3 @@
-entity:sample_id	input-file
-1	hifi_input.fastq
+entity:sample_id	input_file	data_type	input_hic_1_file	input_hic_2_file
+1	gs://fc-42508370-59d2-4d2c-a791-f348a2af8326/hifi_input.fastq	HIFI	gs://fc-42508370-59d2-4d2c-a791-f348a2af8326/hic_1_input.fastq	gs://fc-42508370-59d2-4d2c-a791-f348a2af8326/hic_2_input.fastq
+2	gs://fc-42508370-59d2-4d2c-a791-f348a2af8326/hifi_input.fastq	ONT	gs://fc-42508370-59d2-4d2c-a791-f348a2af8326/hic_1_input.fastq	gs://fc-42508370-59d2-4d2c-a791-f348a2af8326/hic_2_input.fastq
