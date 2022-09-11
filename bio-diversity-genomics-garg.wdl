@@ -1,32 +1,27 @@
 version 1.0
+import "estimation.wdl" as estimation_wdl
 
-workflow BioDivGenomics {
+workflow bio_diversity_genomics {
   input {
     File input_file
+    # "HIFI" or "ONT"
+    String data_type = "HIFI"
   }
-  call FastK { input: source=input_file }
+
+  call estimation_wdl.estimation {
+    input:
+      input_file=input_file
+  }
+
   output {
-    File info = FastK.info
+    File report = estimation.report
+    File table_ktab = estimation.table_ktab
   }
 }
 
-task FastK {
-  input {
-    File source
-  }
+# The dummy task to pass the `dockstore tool launch`.
+task Dummy {
   command {
-    echo "Running FastK with soruce: ${source} .."
-    mkdir -p tmp/FastK
-    # The -N3 option limits the maximum memory to 3 GB due to the GitHub
-    # Actions CI environment.
-    # The -v option outputs the information to stderr.
-    FastK -v -t -p -M3 "${source}" -Ntmp/FastK/table 2> \
-      tmp/FastK/info.txt
-  }
-  output {
-    File info = "tmp/FastK/info.txt"
-  }
-  runtime {
-    docker: "quay.io/junaruga/garg-fastk:latest"
+    echo "dummy"
   }
 }
