@@ -26,8 +26,6 @@ workflow bio_diversity_genomics {
   }
 }
 
-# The dummy task to pass the `dockstore tool launch`.
-# https://discuss.dockstore.org/t/5874
 task check_input {
   input {
     File input_file
