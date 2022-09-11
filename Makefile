@@ -2,6 +2,8 @@ WDL_FILE = bio-diversity-genomics-garg.wdl
 INPUT_FILE = bio-diversity-genomics-garg.inputs.json
 ESTIMATION_WDL_FILE = estimation.wdl
 ESTIMATION_INPUT_FILE = estimation.inputs.json
+ASSEMBLY_WDL_FILE = assembly.wdl
+ASSEMBLY_INPUT_FILE = assembly.inputs.json
 
 DOCKER ?= docker
 HIFIASM_TAG = quay.io/biocontainers/hifiasm:0.16.1--h5b5514e_1
@@ -35,6 +37,12 @@ run-estimation :
 		--local-entry "$(ESTIMATION_WDL_FILE)" \
 		--json "$(ESTIMATION_INPUT_FILE)"
 .PHONY : run-estimation
+
+run-assembly :
+	dockstore tool launch \
+		--local-entry "$(ASSEMBLY_WDL_FILE)" \
+		--json "$(ASSEMBLY_INPUT_FILE)"
+.PHONY : run-assembly
 
 # Test remote Docker containers used in our workflows.
 test-containers : \
