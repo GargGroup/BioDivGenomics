@@ -14,13 +14,15 @@ workflow bio_diversity_genomics {
   }
 
   output {
-    File report = estimation.report
+    File fastk_report = estimation.fastk_report
     File table_ktab = estimation.table_ktab
+    File gene_scope_fk_report = estimation.gene_scope_fk_report
   }
 }
 
 # The dummy task to pass the `dockstore tool launch`.
-task Dummy {
+# https://discuss.dockstore.org/t/5874
+task dummy {
   command {
     echo "dummy"
   }
