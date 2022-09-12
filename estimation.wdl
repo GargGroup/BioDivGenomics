@@ -20,6 +20,7 @@ workflow estimation {
 task fastk {
   input {
     File source
+    Int kmer_size = 31
   }
   command {
     echo "Running FastK with soruce: ${source} .."
@@ -27,7 +28,7 @@ task fastk {
     # The -N3 option limits the maximum memory to 3 GB due to the GitHub
     # Actions CI environment.
     # The -v option outputs the information to stderr.
-    FastK -v -t -p -M3 "${source}" -Ntmp/FastK/table 2> \
+    FastK -k${kmer_size} -v -t -p -M3 "${source}" -Ntmp/FastK/table 2> \
       tmp/FastK/report.txt
     # Record the FastK producing files permissions.
     ls -l tmp/FastK/table.* > tmp/FastK_files_permissons.log
@@ -87,10 +88,11 @@ task histex {
 task gene_scope_fk_r {
   input {
     File hist
+    Int kmer_size = 31
   }
   command {
     mkdir tmp
-    GeneScopeFK.R -i ${hist} -o tmp/GeneScopeFK.R -k 40
+    GeneScopeFK.R -i ${hist} -o tmp/GeneScopeFK.R -k "${kmer_size}"
     pushd tmp
     tar czvf GeneScopeFK.R_report.tar.gz GeneScopeFK.R
     popd
