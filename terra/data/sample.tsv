@@ -1,3 +1,11 @@
 entity:sample_id	input_file	data_type	input_hic_1_file	input_hic_2_file
-1	gs://fc-42508370-59d2-4d2c-a791-f348a2af8326/hifi_input.fastq	HIFI	gs://fc-42508370-59d2-4d2c-a791-f348a2af8326/hic_1_input.fastq	gs://fc-42508370-59d2-4d2c-a791-f348a2af8326/hic_2_input.fastq
-2	gs://fc-42508370-59d2-4d2c-a791-f348a2af8326/hifi_input.fastq	ONT	gs://fc-42508370-59d2-4d2c-a791-f348a2af8326/hic_1_input.fastq	gs://fc-42508370-59d2-4d2c-a791-f348a2af8326/hic_2_input.fastq
+S01	gs://fc-42508370-59d2-4d2c-a791-f348a2af8326/test.hifi.fastq	HIFI	gs://fc-42508370-59d2-4d2c-a791-f348a2af8326/test.hic.R1.fastq	gs://fc-42508370-59d2-4d2c-a791-f348a2af8326/test.hic.R2.fastq
+S02	gs://fc-42508370-59d2-4d2c-a791-f348a2af8326/test.hifi.fastq	ONT	gs://fc-42508370-59d2-4d2c-a791-f348a2af8326/test.hic.R1.fastq	gs://fc-42508370-59d2-4d2c-a791-f348a2af8326/test.hic.R2.fastq
+S03	gs://fc-42508370-59d2-4d2c-a791-f348a2af8326/test.hifi.fastq	HIFI	gs://fc-42508370-59d2-4d2c-a791-f348a2af8326/test.hic.R1.fastq	gs://fc-42508370-59d2-4d2c-a791-f348a2af8326/test.hic.R2.fastq
+S04	gs://fc-42508370-59d2-4d2c-a791-f348a2af8326/test.hifi.fastq	ONT	gs://fc-42508370-59d2-4d2c-a791-f348a2af8326/test.hic.R1.fastq	gs://fc-42508370-59d2-4d2c-a791-f348a2af8326/test.hic.R2.fastq
+S05	gs://fc-42508370-59d2-4d2c-a791-f348a2af8326/test.hifi.fastq	HIFI	gs://fc-42508370-59d2-4d2c-a791-f348a2af8326/test.hic.R1.fastq	gs://fc-42508370-59d2-4d2c-a791-f348a2af8326/test.hic.R2.fastq
+S06	gs://fc-42508370-59d2-4d2c-a791-f348a2af8326/test.hifi.fastq	ONT	gs://fc-42508370-59d2-4d2c-a791-f348a2af8326/test.hic.R1.fastq	gs://fc-42508370-59d2-4d2c-a791-f348a2af8326/test.hic.R2.fastq
+S07	gs://fc-42508370-59d2-4d2c-a791-f348a2af8326/test.hifi.fastq	HIFI	gs://fc-42508370-59d2-4d2c-a791-f348a2af8326/test.hic.R1.fastq	gs://fc-42508370-59d2-4d2c-a791-f348a2af8326/test.hic.R2.fastq
+S08	gs://fc-42508370-59d2-4d2c-a791-f348a2af8326/test.hifi.fastq	ONT	gs://fc-42508370-59d2-4d2c-a791-f348a2af8326/test.hic.R1.fastq	gs://fc-42508370-59d2-4d2c-a791-f348a2af8326/test.hic.R2.fastq
+S09	gs://fc-42508370-59d2-4d2c-a791-f348a2af8326/test.hifi.fastq	HIFI	gs://fc-42508370-59d2-4d2c-a791-f348a2af8326/test.hic.R1.fastq	gs://fc-42508370-59d2-4d2c-a791-f348a2af8326/test.hic.R2.fastq
+S10	gs://fc-42508370-59d2-4d2c-a791-f348a2af8326/test.hifi.fastq	ONT	gs://fc-42508370-59d2-4d2c-a791-f348a2af8326/test.hic.R1.fastq	gs://fc-42508370-59d2-4d2c-a791-f348a2af8326/test.hic.R2.fastq
