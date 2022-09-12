@@ -1,3 +1,7 @@
 {
-  "bio_diversity_genomics.input_file": "input/test.hifi.fastq"
+  "bio_diversity_genomics.input_file": "input/test.hifi.fastq",
+  "bio_diversity_genomics.data_type": "HIFI",
+  "bio_diversity_genomics.input_hic_1_file": "input/test.hic.R1.fastq",
+  "bio_diversity_genomics.input_hic_2_file": "input/test.hic.R2.fastq",
+  "bio_diversity_genomics.is_test": "1"
 }

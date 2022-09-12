@@ -8,9 +8,17 @@ on:
     - cron: '0 22 * * *'
 jobs:
   build:
+    name: ${{ matrix.entry.targets }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
+      matrix:
+        entry:
+          - { targets: "test-containers" }
+          - { targets: "run-estimation" }
+          - { targets: "run-assembly" }
+          - { targets: "run-scaffold run-scaffold-is-test-0" }
+          - { targets: "run" }
     steps:
       - uses: actions/checkout@v3
       # Setup Dockstore command line interface (CLI).
@@ -31,5 +39,4 @@ jobs:
       - run: |
           echo "GNUMAKEFLAGS=-j$((1 + $(nproc --all)))" >> $GITHUB_ENV
       - run: make lint
-      - run: make test-containers
-      - run: make run
+      - run: make ${{ matrix.entry.targets }}

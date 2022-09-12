@@ -4,6 +4,9 @@ ESTIMATION_WDL_FILE = estimation.wdl
 ESTIMATION_INPUT_FILE = estimation.inputs.json
 ASSEMBLY_WDL_FILE = assembly.wdl
 ASSEMBLY_INPUT_FILE = assembly.inputs.json
+SCAFFOLD_WDL_FILE = scaffold.wdl
+SCAFFOLD_INPUT_FILE = scaffold.inputs.json
+SCAFFOLD_IS_TEST_0_INPUT_FILE = scaffold_is_test_0.inputs.json
 
 DOCKER ?= docker
 HIFIASM_TAG = quay.io/biocontainers/hifiasm:0.16.1--h5b5514e_1
@@ -43,6 +46,18 @@ run-assembly :
 		--local-entry "$(ASSEMBLY_WDL_FILE)" \
 		--json "$(ASSEMBLY_INPUT_FILE)"
 .PHONY : run-assembly
+
+run-scaffold :
+	dockstore tool launch \
+		--local-entry "$(SCAFFOLD_WDL_FILE)" \
+		--json "$(SCAFFOLD_INPUT_FILE)"
+.PHONY : run-scaffold
+
+run-scaffold-is-test-0 :
+	dockstore tool launch \
+		--local-entry "$(SCAFFOLD_WDL_FILE)" \
+		--json "$(SCAFFOLD_IS_TEST_0_INPUT_FILE)"
+.PHONY : run-scaffold
 
 # Test remote Docker containers used in our workflows.
 test-containers : \
