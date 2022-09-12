@@ -22,7 +22,11 @@ task hifiasm {
   }
   command {
     mkdir -p tmp/hifiasm
-    hifiasm -o tmp/hifiasm/asm -t10 -z40 "${source}"
+    # Limit the number of the threads not to be killed by system.
+    nproc --all > tmp/hifiasm/cpu_num.txt
+    # Set the -f0 option to disable the bloom filter to save the memory.
+    # https://github.com/chhylp123/hifiasm#usage
+    hifiasm -o tmp/hifiasm/asm -t$(cat tmp/hifiasm/cpu_num.txt) -f0 -z40 "${source}"
 
     # Select the rows with starting with 'S', and convert each row to fasta
     # format, and create the fasta file.
