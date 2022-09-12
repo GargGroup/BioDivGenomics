@@ -14,11 +14,8 @@ jobs:
       fail-fast: false
       matrix:
         entry:
-          - { targets: "test-containers" }
-          - { targets: "run-estimation" }
-          - { targets: "run-assembly" }
-          - { targets: "run-scaffold run-scaffold-is-test-0" }
-          - { targets: "run" }
+          - { targets: "run-estimation run-assembly run-scaffold run-scaffold-is-test-0" }
+          - { targets: "test-containers run" }
     steps:
       - uses: actions/checkout@v3
       # Setup Dockstore command line interface (CLI).
