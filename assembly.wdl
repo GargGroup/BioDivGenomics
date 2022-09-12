@@ -16,6 +16,7 @@ workflow assembly {
 task hifiasm {
   input {
     File source
+    Int kmer_size = 31
     # Set variable as a workaround to avoid a syntax error.
     # https://discuss.dockstore.org/t/5876
     String awk_prog = '/^S/{print ">"$2; print $3}'
@@ -26,7 +27,7 @@ task hifiasm {
     nproc --all > tmp/hifiasm/cpu_num.txt
     # Set the -f0 option to disable the bloom filter to save the memory.
     # https://github.com/chhylp123/hifiasm#usage
-    hifiasm -o tmp/hifiasm/asm -t$(cat tmp/hifiasm/cpu_num.txt) -f0 -z40 "${source}"
+    hifiasm -o tmp/hifiasm/asm -t$(cat tmp/hifiasm/cpu_num.txt) -k${kmer_size} -f0 -z40 "${source}"
 
     # Select the rows with starting with 'S', and convert each row to fasta
     # format, and create the fasta file.
