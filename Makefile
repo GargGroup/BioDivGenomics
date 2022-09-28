@@ -1,6 +1,7 @@
 WDL_FILE = bio-diversity-genomics-garg.wdl
 INPUT_FILE = bio-diversity-genomics-garg.inputs.json
 TEST_FILE = test/test.py
+JOBS = $(shell expr `nproc --all` + 1)
 DOCKER ?= docker
 HIFIASM_TAG = quay.io/biocontainers/hifiasm:0.16.1--h5b5514e_1
 SHASTA_TAG = quay.io/biocontainers/shasta:0.8.0--h7d875b9_0
@@ -38,7 +39,7 @@ run :
 # (e.g. "test_estimation")
 # $ make test TEST_FILE="test/test.py::test_estimation"
 test :
-	pytest-3 -v -n auto $(TEST_OPTS) $(TEST_FILE)
+	pytest-3 -v -n $(JOBS) $(TEST_OPTS) $(TEST_FILE)
 .PHONY : test
 
 # Test remote Docker containers used in our workflows.
