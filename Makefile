@@ -1,13 +1,6 @@
 WDL_FILE = bio-diversity-genomics-garg.wdl
 INPUT_FILE = bio-diversity-genomics-garg.inputs.json
-ESTIMATION_WDL_FILE = estimation.wdl
-ESTIMATION_INPUT_FILE = estimation.inputs.json
-ASSEMBLY_WDL_FILE = assembly.wdl
-ASSEMBLY_INPUT_FILE = assembly.inputs.json
-SCAFFOLD_WDL_FILE = scaffold.wdl
-SCAFFOLD_INPUT_FILE = scaffold.inputs.json
-SCAFFOLD_IS_TEST_0_INPUT_FILE = scaffold_is_test_0.inputs.json
-
+TEST_FILE = test/test.py
 DOCKER ?= docker
 HIFIASM_TAG = quay.io/biocontainers/hifiasm:0.16.1--h5b5514e_1
 SHASTA_TAG = quay.io/biocontainers/shasta:0.8.0--h7d875b9_0
@@ -35,29 +28,18 @@ run :
 		--json "$(INPUT_FILE)"
 .PHONY : run
 
-run-estimation :
-	dockstore tool launch \
-		--local-entry "$(ESTIMATION_WDL_FILE)" \
-		--json "$(ESTIMATION_INPUT_FILE)"
-.PHONY : run-estimation
-
-run-assembly :
-	dockstore tool launch \
-		--local-entry "$(ASSEMBLY_WDL_FILE)" \
-		--json "$(ASSEMBLY_INPUT_FILE)"
-.PHONY : run-assembly
-
-run-scaffold :
-	dockstore tool launch \
-		--local-entry "$(SCAFFOLD_WDL_FILE)" \
-		--json "$(SCAFFOLD_INPUT_FILE)"
-.PHONY : run-scaffold
-
-run-scaffold-is-test-0 :
-	dockstore tool launch \
-		--local-entry "$(SCAFFOLD_WDL_FILE)" \
-		--json "$(SCAFFOLD_IS_TEST_0_INPUT_FILE)"
-.PHONY : run-scaffold
+# Test the wdl files on local.
+#
+# This target requires "python3-pytest" and "python3-pytest-xdist" packages.
+# Run the command below if you want to see the output.
+# $ make test TEST_OPTS="-s"
+#
+# Run the command below if you want to run a specific test case.
+# (e.g. "test_estimation")
+# $ make test TEST_FILE="test/test.py::test_estimation"
+test :
+	pytest-3 -v -n auto $(TEST_OPTS) $(TEST_FILE)
+.PHONY : test
 
 # Test remote Docker containers used in our workflows.
 test-containers : \
