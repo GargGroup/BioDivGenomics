@@ -1,5 +1,6 @@
 *.swp
 *~
+__pycache__
 # Cromwell working or log files.
 /Cromwell.stderr.txt
 /Cromwell.stdout.txt

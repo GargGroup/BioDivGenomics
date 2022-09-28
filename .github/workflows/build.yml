@@ -14,7 +14,7 @@ jobs:
       fail-fast: false
       matrix:
         entry:
-          - { targets: "run-estimation run-assembly run-scaffold run-scaffold-is-test-0" }
+          - { targets: "lint test" }
           - { targets: "test-containers run" }
     steps:
       - uses: actions/checkout@v3
@@ -26,6 +26,10 @@ jobs:
           distribution: 'zulu'
           java-version: '11'
       - run: java --version
+      - run: |
+          sudo apt install -y \
+            python3-pytest \
+            python3-pytest-xdist
       # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#adding-a-system-path
       - run: echo "$HOME/.local/bin" >> $GITHUB_PATH
       - run: ci/install-dockstore-cli.sh
@@ -35,5 +39,4 @@ jobs:
       # Set GNUMAKEFLAGS to run the make targets in parallel.
       - run: |
           echo "GNUMAKEFLAGS=-j$((1 + $(nproc --all)))" >> $GITHUB_ENV
-      - run: make lint
       - run: make ${{ matrix.entry.targets }}
