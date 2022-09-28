@@ -18,8 +18,12 @@ def test_estimation():
     assert run_wdl('estimation.wdl', 'estimation.inputs.json')
 
 
-def test_assembly():
+def test_assembly_on_data_type_hifi():
     assert run_wdl('assembly.wdl', 'assembly.inputs.json')
+
+
+def test_assembly_on_data_type_ont():
+    assert run_wdl('assembly.wdl', 'assembly_ont.inputs.json')
 
 
 def test_scaffold_on_is_test_1():
@@ -28,6 +32,10 @@ def test_scaffold_on_is_test_1():
 
 def test_scaffold_on_is_test_0():
     assert run_wdl('scaffold.wdl', 'scaffold_is_test_0.inputs.json')
+
+
+def test_scaffold_on_data_type_ont():
+    assert run_wdl('scaffold.wdl', 'scaffold_ont.inputs.json')
 
 
 def test_all():

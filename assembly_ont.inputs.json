@@ -1,4 +1,4 @@
 {
   "assembly.input_file": "input/test.hifi.fastq",
-  "assembly.data_type": "HIFI"
+  "assembly.data_type": "ONT"
 }
