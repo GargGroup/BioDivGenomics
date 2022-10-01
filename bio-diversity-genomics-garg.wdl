@@ -20,7 +20,8 @@ workflow bio_diversity_genomics {
 
   call assembly_wdl.assembly {
     input:
-      input_file=input_file
+      input_file=input_file,
+      data_type=data_type
   }
 
   call scaffold_wdl.scaffold {
