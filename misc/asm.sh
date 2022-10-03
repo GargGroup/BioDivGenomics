@@ -40,4 +40,9 @@ mkdir mitohifi
 singularity exec --bind /path/on/disk/to/data/:/mitohifi/ /path/to/mitohifi-v2.2.sif  findMitoReference.py --species "human" --email shilpa.garg2k7@gmail.com --outfolder /mitohifi/ --min_length 16000 
 singularity exec --bind /path/on/disk/to/data/:/mitohifi/ /path/to/mitohifi-v2.2.sif  mitohifi.py -r "/mitohifi/f1.fasta /mitohifi/f2.fasta /mitohifi/f3.fasta" -f /mitohifi/reference.fasta -g /mitohifi/reference.gb  -t 10 -o 2 
 
+echo blobtoolkit running...
 
+~/blobtoolkit/blobtools2/blobtools filter \
+    --param length--Min=1000 \
+    --fasta ~/BTK_TUTORIAL/FILES/ASSEMBLY_NAME.fasta \
+    ~/BTK_TUTORIAL/DATASETS/ASSEMBLY_NAME
