@@ -7,6 +7,11 @@ TEST_INPUT_DIR = os.path.join('test', 'input')
 TEST_TMP_DIR = os.path.join('test', 'tmp')
 CRONMEWLL_JAR_FILE = os.path.join('vendor', 'cromwell', 'cromwell-77.jar')
 
+def print_input_file(file):
+    print('[DEBUG] input file: {0}'.format(file))
+    os.system('cat {0}'.format(file))
+
+
 def run_cmd(cmd):
     status = True
 
@@ -22,12 +27,14 @@ def run_cmd(cmd):
 def run_wdl_by_cromwell(wdl_file, input_file):
     cmd_format = 'java -jar {0} run --inputs {1} {2}'
     cmd = cmd_format.format(CRONMEWLL_JAR_FILE, input_file, wdl_file)
+    print_input_file(input_file)
     return run_cmd(cmd)
 
 
 def run_wdl_by_dockstore_cli(wdl_file, input_file):
     cmd_format = 'dockstore tool launch --local-entry {0} --json {1}'
     cmd = cmd_format.format(wdl_file, input_file)
+    print_input_file(input_file)
     return run_cmd(cmd)
 
 
