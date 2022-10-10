@@ -1,13 +1,17 @@
 import os
 import subprocess
+import tempfile
+from contextlib import contextmanager
 
 TEST_INPUT_DIR = os.path.join('test', 'input')
+TEST_TMP_DIR = os.path.join('test', 'tmp')
 CRONMEWLL_JAR_FILE = os.path.join('vendor', 'cromwell', 'cromwell-77.jar')
 
 def run_cmd(cmd):
     status = True
 
     try:
+        print('[DEBUG] CMD: {0}'.format(cmd))
         subprocess.run(cmd, check=True, shell=True)
     except subprocess.CalledProcessError:
         status = False
@@ -27,29 +31,63 @@ def run_wdl_by_dockstore_cli(wdl_file, input_file):
     return run_cmd(cmd)
 
 
+@contextmanager
+def generate_file(template_path, value_dict):
+    content = None
+
+    with open(template_path, mode='r') as f:
+        content = f.read()
+
+    for key in value_dict:
+        src_key = '%%{0}%%'.format(key)
+        content = content.replace(src_key, value_dict[key])
+
+    try:
+        if not os.path.exists(TEST_TMP_DIR):
+            os.mkdir(TEST_TMP_DIR)
+        generated_file = tempfile.NamedTemporaryFile(
+            mode='x', dir=TEST_TMP_DIR,
+            prefix='generated-file-', delete=False
+        )
+        generated_file.write(content)
+    finally:
+        generated_file.close()
+
+    yield(generated_file.name)
+    os.unlink(generated_file.name)
+
+
 def test_estimation():
     input_file = os.path.join(TEST_INPUT_DIR, 'estimation.inputs.json')
     assert run_wdl_by_cromwell('estimation.wdl', input_file)
 
 
 def test_assembly_on_data_type_hifi():
-    input_file = os.path.join(TEST_INPUT_DIR, 'assembly.inputs.json')
-    assert run_wdl_by_cromwell('assembly.wdl', input_file)
+    tmpl_file = os.path.join(TEST_INPUT_DIR, 'assembly.inputs.json.tmpl')
+
+    with generate_file(tmpl_file, {'DATA_TYPE': 'HIFI'}) as input_file:
+        assert run_wdl_by_cromwell('assembly.wdl', input_file)
 
 
 def test_assembly_on_data_type_ont():
-    input_file = os.path.join(TEST_INPUT_DIR, 'assembly_ont.inputs.json')
-    assert run_wdl_by_cromwell('assembly.wdl', input_file)
+    tmpl_file = os.path.join(TEST_INPUT_DIR, 'assembly.inputs.json.tmpl')
+
+    with generate_file(tmpl_file, {'DATA_TYPE': 'ONT'}) as input_file:
+        assert run_wdl_by_cromwell('assembly.wdl', input_file)
 
 
 def test_scaffold_on_is_test_1():
-    input_file = os.path.join(TEST_INPUT_DIR, 'scaffold.inputs.json')
-    assert run_wdl_by_cromwell('scaffold.wdl', input_file)
+    tmpl_file = os.path.join(TEST_INPUT_DIR, 'scaffold_hifi.inputs.json.tmpl')
+
+    with generate_file(tmpl_file, {'IS_TEST': '1'}) as input_file:
+        assert run_wdl_by_cromwell('scaffold.wdl', input_file)
 
 
 def test_scaffold_on_is_test_0():
-    input_file = os.path.join(TEST_INPUT_DIR, 'scaffold_is_test_0.inputs.json')
-    assert run_wdl_by_cromwell('scaffold.wdl', input_file)
+    tmpl_file = os.path.join(TEST_INPUT_DIR, 'scaffold_hifi.inputs.json.tmpl')
+
+    with generate_file(tmpl_file, {'IS_TEST': '0'}) as input_file:
+        assert run_wdl_by_cromwell('scaffold.wdl', input_file)
 
 
 def test_scaffold_on_data_type_ont():
