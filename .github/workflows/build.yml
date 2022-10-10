@@ -55,8 +55,8 @@ jobs:
           - { test: "test_estimation" }
           - { test: "test_assembly_on_data_type_hifi" }
           - { test: "test_assembly_on_data_type_ont" }
-          - { test: "test_scaffold_on_is_test_1" }
-          - { test: "test_scaffold_on_is_test_0" }
+          - { test: "test_scaffold_on_data_type_hifi_is_test_1" }
+          - { test: "test_scaffold_on_data_type_hifi_is_test_0" }
           - { test: "test_scaffold_on_data_type_ont" }
     steps:
       - uses: actions/checkout@v3

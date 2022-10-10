@@ -76,23 +76,40 @@ def test_assembly_on_data_type_ont():
         assert run_wdl_by_cromwell('assembly.wdl', input_file)
 
 
-def test_scaffold_on_is_test_1():
-    tmpl_file = os.path.join(TEST_INPUT_DIR, 'scaffold_hifi.inputs.json.tmpl')
+def test_scaffold_on_data_type_hifi_is_test_1():
+    tmpl_file = os.path.join(TEST_INPUT_DIR, 'scaffold.inputs.json.tmpl')
+    value_dict = {
+        'ASM_GFA_FILE': 'test/data/hifiasm/asm.bp.r_utg.gfa',
+        'ASM_FA_FILE': 'test/data/hifiasm/generated_asm.bp.r_utg.fa',
+        'IS_TEST': '1'
+    }
 
-    with generate_file(tmpl_file, {'IS_TEST': '1'}) as input_file:
+    with generate_file(tmpl_file, value_dict) as input_file:
         assert run_wdl_by_cromwell('scaffold.wdl', input_file)
 
 
-def test_scaffold_on_is_test_0():
-    tmpl_file = os.path.join(TEST_INPUT_DIR, 'scaffold_hifi.inputs.json.tmpl')
+def test_scaffold_on_data_type_hifi_is_test_0():
+    tmpl_file = os.path.join(TEST_INPUT_DIR, 'scaffold.inputs.json.tmpl')
+    value_dict = {
+        'ASM_GFA_FILE': 'test/data/hifiasm/asm.bp.r_utg.gfa',
+        'ASM_FA_FILE': 'test/data/hifiasm/generated_asm.bp.r_utg.fa',
+        'IS_TEST': '0'
+    }
 
-    with generate_file(tmpl_file, {'IS_TEST': '0'}) as input_file:
+    with generate_file(tmpl_file, value_dict) as input_file:
         assert run_wdl_by_cromwell('scaffold.wdl', input_file)
 
 
 def test_scaffold_on_data_type_ont():
-    input_file = os.path.join(TEST_INPUT_DIR, 'scaffold_ont.inputs.json')
-    assert run_wdl_by_cromwell('scaffold.wdl', input_file)
+    tmpl_file = os.path.join(TEST_INPUT_DIR, 'scaffold.inputs.json.tmpl')
+    value_dict = {
+        'ASM_GFA_FILE': 'test/data/shasta/Assembly.gfa',
+        'ASM_FA_FILE': 'test/data/shasta/Assembly.fasta',
+        'IS_TEST': '0'
+    }
+
+    with generate_file(tmpl_file, value_dict) as input_file:
+        assert run_wdl_by_cromwell('scaffold.wdl', input_file)
 
 
 def test_all():
