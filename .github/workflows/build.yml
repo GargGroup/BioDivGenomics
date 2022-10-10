@@ -59,11 +59,7 @@ jobs:
           - { test: "test_scaffold_on_is_test_0" }
           - { test: "test_scaffold_on_data_type_ont" }
     steps:
-      # https://github.com/actions/checkout
       - uses: actions/checkout@v3
-        with:
-          # The Git-LfS file cromwell-77.jar needs to be pulled.
-          lfs: true
       - uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
@@ -74,5 +70,8 @@ jobs:
             python3-pytest \
             python3-pytest-xdist
       - run: free -h
+      - run: |
+          ci/retry.sh wget https://github.com/broadinstitute/cromwell/releases/download/77/cromwell-77.jar \
+            -O vendor/cromwell/cromwell-77.jar
       - run: |
           make test TEST_FILE=test/test.py::${{ matrix.entry.test }}
