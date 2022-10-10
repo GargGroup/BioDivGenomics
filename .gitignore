@@ -6,4 +6,5 @@ __pycache__
 /Cromwell.stdout.txt
 /cromwell-executions/
 /cromwell-input/
+/test/tmp/
 /vendor/cromwell/cromwell-*.jar
