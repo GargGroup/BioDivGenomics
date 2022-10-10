@@ -1,5 +1,5 @@
 WDL_FILE = bio-diversity-genomics-garg.wdl
-INPUT_FILE = bio-diversity-genomics-garg.inputs.json
+INPUT_FILE = test/input/bio-diversity-genomics-garg.inputs.json
 TEST_FILE = test/test.py
 PYTEST = $(shell script/find-pytest.sh)
 JOBS = $(shell expr `nproc --all` + 1)

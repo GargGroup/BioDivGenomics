@@ -1,8 +1,0 @@
-{
-  "scaffold.input_file": "input/test.hifi.fastq",
-  "scaffold.input_hic_1_file": "input/test.hic.R1.fastq",
-  "scaffold.input_hic_2_file": "input/test.hic.R2.fastq",
-  "scaffold.input_asm_gfa_file": "input/asm_ont.gfa",
-  "scaffold.input_asm_fa_file": "input/asm_ont.fa",
-  "scaffold.is_test": "0"
-}
