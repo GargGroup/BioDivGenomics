@@ -74,4 +74,4 @@ jobs:
           ci/retry.sh wget https://github.com/broadinstitute/cromwell/releases/download/77/cromwell-77.jar \
             -O vendor/cromwell/cromwell-77.jar
       - run: |
-          make test TEST_FILE=test/test.py::${{ matrix.entry.test }}
+          make test TEST_OPTS=-s TEST_FILE=test/test.py::${{ matrix.entry.test }}
