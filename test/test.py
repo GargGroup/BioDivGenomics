@@ -9,7 +9,9 @@ CRONMEWLL_JAR_FILE = os.path.join('vendor', 'cromwell', 'cromwell-77.jar')
 
 def print_input_file(file):
     print('[DEBUG] input file: {0}'.format(file))
-    os.system('cat {0}'.format(file))
+    with open(file, mode='r') as f:
+        for line in f:
+            print(line, end='')
 
 
 def run_cmd(cmd):
