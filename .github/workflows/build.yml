@@ -7,15 +7,15 @@ on:
     # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onschedule
     - cron: '0 22 * * *'
 jobs:
-  build:
-    name: ${{ matrix.entry.targets }}
+  make:
+    name: make ${{ matrix.entry.targets }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         entry:
-          - { targets: "lint test" }
-          - { targets: "test-containers run" }
+          - { targets: "test-containers" }
+          - { targets: "run", dockstore: true }
     steps:
       - uses: actions/checkout@v3
       # Setup Dockstore command line interface (CLI).
@@ -32,11 +32,47 @@ jobs:
             python3-pytest-xdist
       # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#adding-a-system-path
       - run: echo "$HOME/.local/bin" >> $GITHUB_PATH
+        if: ${{ matrix.entry.dockstore }}
       - run: ci/install-dockstore-cli.sh
+        if: ${{ matrix.entry.dockstore }}
       - run: dockstore --version
+        if: ${{ matrix.entry.dockstore }}
       # Check available memory size before running the workflow.
       - run: free -h
       # Set GNUMAKEFLAGS to run the make targets in parallel.
       - run: |
           echo "GNUMAKEFLAGS=-j$((1 + $(nproc --all)))" >> $GITHUB_ENV
+      - run: make lint
+        if: ${{ matrix.entry.dockstore }}
       - run: make ${{ matrix.entry.targets }}
+  make-test:
+    name: make test ${{ matrix.entry.test }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        entry:
+          - { test: "test_estimation" }
+          - { test: "test_assembly_on_data_type_hifi" }
+          - { test: "test_assembly_on_data_type_ont" }
+          - { test: "test_scaffold_on_is_test_1" }
+          - { test: "test_scaffold_on_is_test_0" }
+          - { test: "test_scaffold_on_data_type_ont" }
+    steps:
+      # https://github.com/actions/checkout
+      - uses: actions/checkout@v3
+        with:
+          # The Git-LfS file cromwell-77.jar needs to be pulled.
+          lfs: true
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+      - run: java --version
+      - run: |
+          sudo apt install -y \
+            python3-pytest \
+            python3-pytest-xdist
+      - run: free -h
+      - run: |
+          make test TEST_FILE=test/test.py::${{ matrix.entry.test }}

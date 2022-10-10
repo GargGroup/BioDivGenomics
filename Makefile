@@ -25,9 +25,7 @@ selinux-lint :
 
 # Run the wdl file on local.
 run :
-	dockstore tool launch \
-		--local-entry "$(WDL_FILE)" \
-		--json "$(INPUT_FILE)"
+	$(PYTEST) -v -s test/test.py::test_all
 .PHONY : run
 
 # Test the wdl files on local.
