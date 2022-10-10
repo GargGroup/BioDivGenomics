@@ -55,15 +55,15 @@ test-containers : \
 .PHONY : test-containers
 
 test-container-fastk :
-	$(MAKE) test-remote -C FASTK
+	$(MAKE) test-remote -C container/FASTK
 .PHONY : test-container-fastk
 
 test-container-gene-scope-fk :
-	$(MAKE) test-remote -C GENESCOPE.FK
+	$(MAKE) test-remote -C container/GENESCOPE.FK
 .PHONY : test-container-gene-scope-fk
 
 test-container-merqury-fk :
-	$(MAKE) test-remote -C MERQURY.FK
+	$(MAKE) test-remote -C container/MERQURY.FK
 .PHONY : test-container-merqury-fk
 
 # hifiasm
