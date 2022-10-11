@@ -72,7 +72,6 @@ jobs:
             python3-pytest-xdist
       - run: free -h
       - run: |
-          ci/retry.sh wget https://github.com/broadinstitute/cromwell/releases/download/77/cromwell-77.jar \
-            -O vendor/cromwell/cromwell-77.jar
+          ci/retry.sh ci/install-cromwell.sh
       - run: |
           make test TEST_OPTS=-s TEST_FILE=test/test.py::${{ matrix.entry.test }}
