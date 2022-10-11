@@ -25,10 +25,13 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '11'
+        if: ${{ matrix.entry.dockstore }}
       - run: java --version
+        if: ${{ matrix.entry.dockstore }}
       - run: |
           sudo apt install -y \
             python3-pytest
+        if: ${{ matrix.entry.dockstore }}
       # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#adding-a-system-path
       - run: echo "$HOME/.local/bin" >> $GITHUB_PATH
         if: ${{ matrix.entry.dockstore }}
