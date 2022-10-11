@@ -40,6 +40,18 @@ def run_wdl_by_dockstore_cli(wdl_file, input_file):
     return run_cmd(cmd)
 
 
+def run_wdl(wdl_file, input_file):
+    is_cromwell = os.environ.get('TEST_WDL_ENGINE') == 'cromwell'
+    status = True
+
+    if is_cromwell:
+        status = run_wdl_by_cromwell(wdl_file, input_file)
+    else:
+        status = run_wdl_by_dockstore_cli(wdl_file, input_file)
+
+    return status
+
+
 @contextmanager
 def generate_file(template_path, value_dict):
     content = None
@@ -68,21 +80,21 @@ def generate_file(template_path, value_dict):
 
 def test_estimation():
     input_file = os.path.join(TEST_INPUT_DIR, 'estimation.inputs.json')
-    assert run_wdl_by_cromwell('estimation.wdl', input_file)
+    assert run_wdl('estimation.wdl', input_file)
 
 
 def test_assembly_on_data_type_hifi():
     tmpl_file = os.path.join(TEST_INPUT_DIR, 'assembly.inputs.json.tmpl')
 
     with generate_file(tmpl_file, {'DATA_TYPE': 'HIFI'}) as input_file:
-        assert run_wdl_by_cromwell('assembly.wdl', input_file)
+        assert run_wdl('assembly.wdl', input_file)
 
 
 def test_assembly_on_data_type_ont():
     tmpl_file = os.path.join(TEST_INPUT_DIR, 'assembly.inputs.json.tmpl')
 
     with generate_file(tmpl_file, {'DATA_TYPE': 'ONT'}) as input_file:
-        assert run_wdl_by_cromwell('assembly.wdl', input_file)
+        assert run_wdl('assembly.wdl', input_file)
 
 
 def test_scaffold_on_data_type_hifi_is_test_1():
@@ -94,7 +106,7 @@ def test_scaffold_on_data_type_hifi_is_test_1():
     }
 
     with generate_file(tmpl_file, value_dict) as input_file:
-        assert run_wdl_by_cromwell('scaffold.wdl', input_file)
+        assert run_wdl('scaffold.wdl', input_file)
 
 
 def test_scaffold_on_data_type_hifi_is_test_0():
@@ -106,7 +118,7 @@ def test_scaffold_on_data_type_hifi_is_test_0():
     }
 
     with generate_file(tmpl_file, value_dict) as input_file:
-        assert run_wdl_by_cromwell('scaffold.wdl', input_file)
+        assert run_wdl('scaffold.wdl', input_file)
 
 
 def test_scaffold_on_data_type_ont():
@@ -118,11 +130,10 @@ def test_scaffold_on_data_type_ont():
     }
 
     with generate_file(tmpl_file, value_dict) as input_file:
-        assert run_wdl_by_cromwell('scaffold.wdl', input_file)
+        assert run_wdl('scaffold.wdl', input_file)
 
 
 def test_all():
     input_file = os.path.join(TEST_INPUT_DIR,
                               'bio-diversity-genomics-garg.inputs.json')
-    assert run_wdl_by_dockstore_cli('bio-diversity-genomics-garg.wdl',
-                                    input_file)
+    assert run_wdl('bio-diversity-genomics-garg.wdl', input_file)
