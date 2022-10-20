@@ -52,3 +52,6 @@ echo Assembly evaluation....
 # put correct variable value for genome size from Fastk in estimation pipeline.
 cat hap1.fa hap2.fa > all.fa
 /home/sgarg/.local/bin/quast.py  -o quast --large --est-ref-size 3100000000 --no-icarus all.fa
+
+# BUSCO
+docker run -u $(id -u) -v /home/name/:/busco_wd ezlabgva/busco:v5.4.3_cv1 busco -i all.fa
