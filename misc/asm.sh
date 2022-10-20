@@ -46,3 +46,9 @@ echo blobtoolkit running...
     --param length--Min=1000 \
     --fasta ~/BTK_TUTORIAL/FILES/ASSEMBLY_NAME.fasta \
     ~/BTK_TUTORIAL/DATASETS/ASSEMBLY_NAME
+    
+echo Assembly evaluation....
+
+# put correct variable value for genome size from Fastk in estimation pipeline.
+cat hap1.fa hap2.fa > all.fa
+/home/sgarg/.local/bin/quast.py  -o quast --large --est-ref-size 3100000000 --no-icarus all.fa
